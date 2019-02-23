@@ -1,0 +1,41 @@
+<html>
+
+<head>
+    <title>Login</title>
+    <!-- Many websites use jquery, which we use here to fetch the malicious js.
+        Even if you don't have jquery you can still fetch js files, albeit a bit 
+        more verbose -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="name">Login</div>
+    <label for="uname">User name</label>
+    <input id="uname" type="text">
+    <label for="pwd">Password</label>
+    <input id="pwd" type="password">
+    <button id="btn">Login</button>
+    <button><a href="/">Home</a></button>
+    <button><a href="/register">Register</a></button>
+
+    <!-- Say hello to the user -->
+    <script>
+        $(document).ready(function () {
+            $('#btn').click(function () {
+                const url = 'http://localhost:3004/users';
+                $.get(url, function (data, status) {
+                    for (var i = 0; i < data.length; i++) {
+                        var obj = data[i];
+                        if (obj.userName === $('#uname').val() && obj.password === $('#pwd').val()) {
+                            alert('Succes')
+                        } else {
+                            alert('Fail')
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>
