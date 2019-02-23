@@ -1,23 +1,92 @@
 <html>
-    <head>
-        <title>Home Page</title>
-        <!-- Many websites use jquery, which we use here to fetch the malicious js.
+
+<head>
+    <title>Home Page</title>
+    <!-- Many websites use jquery, which we use here to fetch the malicious js.
         Even if you don't have jquery you can still fetch js files, albeit a bit 
         more verbose -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    </head>
-    <body>
-        <div id="name">Posts</div>
-        <label for="uname">User name</label>
-        <input id="uname" type="text">
-        <label for="pwd">Password</label>
-        <input id="pwd" type="password">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 
-        <!-- Say hello to the user -->
-        <script>
-            const urlParams = new URLSearchParams(window.location.search);
-            const name = urlParams.get('name');
-            document.getElementById('name').innerHTML = `<p>Hello ${name}</p>`;
-        </script>
-    </body>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+</head>
+
+<body>
+    <button><a href="/login">Login</a></button>
+    <button><a href="/register">Register</a></button>
+    <button type="button" data-toggle="modal" data-target="#myModal">Tweet</button>
+    <!-- Modal -->
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Modal Header</h4>
+                </div>
+                <div class="modal-body">
+                    <label for="tweet">Tweet</label>
+                    <input id="tweet" type="text">
+                    <button id="btn">Tweet!</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btn" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <table id="table_id" class="display">
+        <thead>
+            <tr>
+                <th>Tweet</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+    </table>
+
+    <!-- Say hello to the user -->
+    <script>
+        $(document).ready(function () {
+            $('#table_id').DataTable({
+                ajax: {
+                    url: "http://localhost:3004/posts",
+                    dataSrc: ""
+                },
+                columns: [{
+                        data: "tweet"
+                    },
+                    {
+                        data: "author"
+                    }
+                ]
+            });
+
+            $('#btn').click(function () {
+                if (localStorage.getItem('LoggedIn')  === "true") {
+                    const url = 'http://localhost:3004/posts';
+                    const data = {
+                        tweet: $('#tweet').val(),
+                        author: localStorage.getItem('User')
+                    }
+                    $.post(url, data, function (data, status) {
+                        $('#table_id').DataTable().ajax.reload();
+                        $("#myModal .close").click()
+                    })
+                } else {
+                    alert('U have to be logged in to tweet');
+                }
+            })
+
+        });
+    </script>
+</body>
+
 </html>

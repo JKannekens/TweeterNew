@@ -5,5 +5,22 @@
       "userName": "test",
       "password": "test"
     }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "tweet": "Lorem ipsum teste testes",
+      "author": "test"
+    },
+    {
+      "id": 2,
+      "tweet": "Hello everyone",
+      "author": "test"
+    },
+    {
+      "id": 3,
+      "tweet": "hello anyone?",
+      "author": "test"
+    }
   ]
 }
