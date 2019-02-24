@@ -36,3 +36,14 @@ Just a normal tweet not an secret script or something
 </script>
 
 // End Tweet
+
+Mitigation = Validation on the tweet message by adding this
+
+const message = $('#tweet').val();
+const edited = message.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
+const data = {
+                tweet: edited,
+                author: localStorage.getItem('User')
+            }
+
+

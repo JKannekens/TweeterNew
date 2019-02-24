@@ -70,7 +70,7 @@
             });
 
             $('#btn').click(function () {
-                if (localStorage.getItem('LoggedIn')  === "true") {
+                if (localStorage.getItem('LoggedIn') === "true") {
                     const url = 'http://localhost:3004/posts';
                     const data = {
                         tweet: $('#tweet').val(),
