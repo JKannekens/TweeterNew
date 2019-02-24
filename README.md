@@ -37,7 +37,7 @@ Just a normal tweet not an secret script or something
 
 // End Tweet
 
-Mitigation = Validation on the tweet message by adding this
+Mitigation = Validation on the tweet message by adding this to the post in index.html
 
 const message = $('#tweet').val();
 const edited = message.replace(/&/g, "&amp;").replace(/>/g, "&gt;").replace(/</g, "&lt;").replace(/"/g, "&quot;");
